@@ -1,6 +1,5 @@
 import { asset } from "../asset"
-import { MEMBERS, PORTRAITS, SOCIALS } from "../data"
-import ScrollReel from "./ScrollReel"
+import { MEMBERS, SOCIALS } from "../data"
 
 export default function Band() {
   return (
@@ -25,14 +24,6 @@ export default function Band() {
           ))}
         </div>
       </div>
-      <ScrollReel
-        id="portraits"
-        eyebrow="Portraits"
-        title="Frames."
-        items={PORTRAITS}
-        getKey={(photo) => photo.src}
-        render={(photo) => <img src={asset(photo.src)} alt={photo.alt} />}
-      />
       <footer className="footer" id="contact">
         <p className="eyebrow">Contact</p>
         <h2 className="footer-word">

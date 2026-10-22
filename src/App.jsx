@@ -5,23 +5,20 @@ import "lenis/dist/lenis.css"
 import InkField from "./components/InkField"
 import { Cursor, Loader, Marquee, Nav, Rail } from "./components/Chrome"
 import Hero from "./components/Hero"
-import Story from "./components/Story"
 import { Records, ReleaseModal, Singles } from "./components/Records"
-import { Listen, Live, Watch } from "./components/Signal"
+import { Listen, Optics, Watch } from "./components/Signal"
 import Band from "./components/Band"
-import { PLACES } from "./data"
 import { useReducedMotion } from "./hooks"
 import Tour from "./components/Tour"
 
 const TINTS = {
-  tour: [0.9, 0.25, 0.32],
-  top: [0.89, 0.3, 0.24],
-  signal: [0.08, 0.55, 0.52],
-  records: [0.86, 0.22, 0.28],
+  tour: [0.95, 0.22, 0.28],
+  top: [0.45, 0.2, 0.85],
+  signal: [0.15, 0.75, 0.85],
+  records: [0.9, 0.25, 0.32],
   listen: [0.78, 0.45, 0.2],
-  watch: [0.55, 0.22, 0.62],
-  live: [0.9, 0.25, 0.32],
-  band: [0.18, 0.55, 0.38],
+  watch: [0.55, 0.2, 0.7],
+  band: [0.2, 0.7, 0.55],
 }
 
 export default function App() {
@@ -29,7 +26,6 @@ export default function App() {
   const [booting, setBooting] = useState(true)
   const [menu, setMenu] = useState(false)
   const [active, setActive] = useState("tour")
-  const [night, setNight] = useState(false)
   const [release, setRelease] = useState(null)
   const closeRelease = useCallback(() => setRelease(null), [])
   const finishBoot = useCallback(() => setBooting(false), [])
@@ -56,7 +52,7 @@ export default function App() {
   }, [reduce])
 
   useEffect(() => {
-    const sections = ["tour", "top", "signal", "records", "listen", "watch", "live", "band"]
+    const sections = ["tour", "top", "records", "signal", "watch", "listen", "band"]
     const nodes = sections.map((id) => document.getElementById(id)).filter(Boolean)
     const observer = new IntersectionObserver(
       (entries) => {
@@ -72,21 +68,32 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const mark = () => {
-      const live = document.getElementById("live")
-      if (!live) return
-      setNight(live.getBoundingClientRect().top < window.innerHeight * 0.65)
-    }
-    mark()
-    window.addEventListener("scroll", mark, { passive: true })
-    return () => window.removeEventListener("scroll", mark)
+    document.documentElement.dataset.night = "true"
+    const theme = document.querySelector('meta[name="theme-color"]')
+    if (theme) theme.setAttribute("content", "#07060c")
   }, [])
 
   useEffect(() => {
-    document.documentElement.dataset.night = night ? "true" : "false"
-    const theme = document.querySelector('meta[name="theme-color"]')
-    if (theme) theme.setAttribute("content", night ? "#110d14" : "#f3eadc")
-  }, [night])
+    if (reduce) return
+    const onMove = (event) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 8
+      const y = (event.clientY / window.innerHeight - 0.5) * -5
+      document.documentElement.style.setProperty("--tilt-y", `${x}deg`)
+      document.documentElement.style.setProperty("--tilt-x", `${y}deg`)
+    }
+    const onScroll = () => {
+      const depth = document.documentElement.scrollHeight - window.innerHeight
+      const p = depth > 0 ? window.scrollY / depth : 0
+      document.documentElement.style.setProperty("--beam", `${8 + p * 78}%`)
+    }
+    onScroll()
+    window.addEventListener("pointermove", onMove)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      window.removeEventListener("pointermove", onMove)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [reduce])
 
   useEffect(() => {
     document.documentElement.dataset.film = active === "tour" ? "true" : "false"
@@ -94,8 +101,9 @@ export default function App() {
 
   return (
     <>
-      <InkField night={night} tint={TINTS[active] || TINTS.top} />
+      <InkField night tint={TINTS[active] || TINTS.top} />
       <div className="grain" aria-hidden="true" />
+      <div className="beam" aria-hidden="true" />
       <Cursor />
       <AnimatePresence>{booting && <Loader key="boot" onDone={finishBoot} />}</AnimatePresence>
       <div className="site">
@@ -105,13 +113,11 @@ export default function App() {
           <Tour />
           <Hero />
           <Marquee />
-          <Marquee reverse items={PLACES} duration={62} />
-          <Story />
           <Records onOpen={setRelease} />
           <Singles />
-          <Listen />
+          <Optics />
           <Watch />
-          <Live />
+          <Listen />
           <Band />
         </main>
       </div>

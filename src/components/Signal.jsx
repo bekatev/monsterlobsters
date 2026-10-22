@@ -1,10 +1,16 @@
 import { useState } from "react"
-import { MORE_VIDEOS, SHOWS, SONGS, VIDEOS } from "../data"
+import { VIDEOS, SONGS } from "../data"
 import { asset } from "../asset"
-import { scrollToId } from "../hooks"
 import ScrollReel from "./ScrollReel"
 
-const FILMS = [...VIDEOS, ...MORE_VIDEOS]
+const FILMS = VIDEOS.slice(0, 4)
+
+const FRAMES = [
+  { src: "/photos/red-couch.jpg", alt: "The band around a red sofa in front of gold curtains." },
+  { src: "/photos/egg.jpg", alt: "Members of the band on a mustard sofa under a fried-egg sculpture." },
+  { src: "/photos/festival.jpg", alt: "A guitarist playing to a packed outdoor crowd." },
+  { src: "/photos/club-red.jpg", alt: "The band under red light in a brick club." },
+]
 
 function Film({ video, active, setActive }) {
   const playing = active === video.id
@@ -95,18 +101,13 @@ export function Watch() {
   )
 }
 
-export function Live() {
+export function Optics() {
   return (
     <ScrollReel
-      id="live"
-      eyebrow="Live"
-      title="The shows."
-      note={
-        <button className="text-link" onClick={() => scrollToId("tour")}>
-          Dates and tickets
-        </button>
-      }
-      items={SHOWS}
+      id="signal"
+      eyebrow="Optics"
+      title="Frames."
+      items={FRAMES}
       getKey={(photo) => photo.src}
       render={(photo) => <img src={asset(photo.src)} alt={photo.alt} />}
     />

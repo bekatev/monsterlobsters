@@ -56,7 +56,7 @@ export default function ScrollReel({ id, eyebrow, title, note, items, getKey, re
       className="reel"
       id={id}
       ref={ref}
-      style={{ height: `${Math.max(items.length, 1) * 72}vh` }}
+      style={{ height: `${Math.max(items.length, 1) * 52}vh` }}
       aria-labelledby={`${id}-title`}
     >
       <div className="reel-sticky">

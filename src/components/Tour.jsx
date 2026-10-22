@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import { asset } from "../asset"
 import { TOUR } from "../data"
 
@@ -19,8 +20,15 @@ export default function Tour() {
           </h1>
         </div>
         <ul className="tour-list">
-          {TOUR.map((show) => (
-            <li className="tour-row" key={`${show.date}-${show.city}`}>
+          {TOUR.map((show, index) => (
+            <motion.li
+              className="tour-row"
+              key={`${show.date}-${show.city}`}
+              initial={{ opacity: 0, x: 36 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.55, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div>
                 <p className="tour-date">{show.date}</p>
                 <p className="tour-year">{show.year}</p>
@@ -39,7 +47,7 @@ export default function Tour() {
               ) : (
                 <span />
               )}
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

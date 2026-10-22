@@ -49,11 +49,11 @@ export const Loader = forwardRef(function Loader({ onDone }, ref) {
 
 const LINKS = [
   ["tour", "Tour"],
-  ["signal", "Signal"],
+  ["top", "Enter"],
   ["records", "Records"],
-  ["listen", "Listen"],
+  ["signal", "Optics"],
   ["watch", "Watch"],
-  ["live", "Live"],
+  ["listen", "Listen"],
   ["band", "Band"],
 ]
 
@@ -147,12 +147,11 @@ export function Rail({ active }) {
   const items = [
     ["tour", "00", "Tour"],
     ["top", "01", "Enter"],
-    ["signal", "02", "Signal"],
-    ["records", "03", "Records"],
-    ["listen", "04", "Listen"],
-    ["watch", "05", "Watch"],
-    ["live", "06", "Live"],
-    ["band", "07", "Band"],
+    ["records", "02", "Records"],
+    ["signal", "03", "Optics"],
+    ["watch", "04", "Watch"],
+    ["listen", "05", "Listen"],
+    ["band", "06", "Band"],
   ]
   return (
     <nav className="rail" aria-label="Sections">
