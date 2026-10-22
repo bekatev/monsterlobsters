@@ -40,9 +40,9 @@ void main() {
   float b = noise(q * 3.3 - u_time * 0.045 + 6.2);
   float c = noise(q * 1.2 + vec2(4.0, u_time * 0.03));
 
-  vec3 paper = vec3(0.953, 0.918, 0.863);
-  vec3 rose = vec3(0.96, 0.62, 0.68);
-  vec3 mint = vec3(0.45, 0.78, 0.62);
+  vec3 paper = vec3(0.078, 0.067, 0.06);
+  vec3 rose = vec3(0.16, 0.07, 0.09);
+  vec3 mint = vec3(0.62, 0.28, 0.38);
   vec3 gold = vec3(0.93, 0.78, 0.42);
   vec3 red = vec3(0.89, 0.28, 0.22);
   vec3 col = paper;
@@ -55,7 +55,7 @@ void main() {
   float center = smoothstep(0.95, 0.15, length(p));
   col = mix(col, paper, center * 0.38);
 
-  vec3 night = vec3(0.055, 0.04, 0.07);
+  vec3 night = vec3(0.078, 0.067, 0.06);
   vec3 glow = mix(u_tint, vec3(0.95, 0.45, 0.38), 0.35);
   vec3 nightCol = mix(night, glow, 0.22 + bloom * 0.45 + a * 0.18);
   col = mix(col, nightCol, u_night);

@@ -12,13 +12,13 @@ import { useReducedMotion } from "./hooks"
 import Tour from "./components/Tour"
 
 const TINTS = {
-  tour: [0.95, 0.22, 0.28],
-  top: [0.45, 0.2, 0.85],
-  signal: [0.15, 0.75, 0.85],
-  records: [0.9, 0.25, 0.32],
-  listen: [0.78, 0.45, 0.2],
-  watch: [0.55, 0.2, 0.7],
-  band: [0.2, 0.7, 0.55],
+  tour: [1, 0.21, 0.21],
+  top: [0.99, 0.91, 0.98],
+  signal: [0.94, 0.45, 0.57],
+  records: [0.99, 0.91, 0.98],
+  listen: [0.95, 0.92, 0.87],
+  watch: [1, 0.21, 0.21],
+  band: [0, 0.66, 0.47],
 }
 
 export default function App() {
@@ -70,7 +70,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.night = "true"
     const theme = document.querySelector('meta[name="theme-color"]')
-    if (theme) theme.setAttribute("content", "#07060c")
+    if (theme) theme.setAttribute("content", "#14110f")
   }, [])
 
   useEffect(() => {
