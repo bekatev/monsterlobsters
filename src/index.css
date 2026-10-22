@@ -140,9 +140,19 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.85rem 1.15rem;
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 1.15rem;
+  background: rgba(7, 6, 12, 0.78);
+  border-bottom: 0;
+}
+
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff4a38 30%, #8ef6ff 70%, transparent);
 }
 
 .brand {
@@ -404,7 +414,8 @@ html[data-film="true"] .cursor-ring {
 }
 
 .nav-links button[data-active="true"] {
-  color: #e23b2f;
+  color: #fff8f2;
+  box-shadow: inset 0 -2px 0 #e23b2f;
 }
 
 .menu-btn,
@@ -491,6 +502,34 @@ html[data-film="true"] .cursor-ring {
 
 .hero.future-hero {
   align-items: center;
+}
+
+.future-name {
+  position: relative;
+}
+
+.future-name::before,
+.future-name::after {
+  content: "";
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1.5px solid rgba(244, 239, 232, 0.8);
+  pointer-events: none;
+}
+
+.future-name::before {
+  top: -0.35rem;
+  left: -0.35rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.future-name::after {
+  right: -0.15rem;
+  bottom: -0.2rem;
+  border-left: 0;
+  border-top: 0;
 }
 
 .future-name .display {
@@ -658,11 +697,22 @@ section {
 }
 
 .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #e23b2f;
   font-weight: 700;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  background: #e23b2f;
+  flex: none;
 }
 
 h1.section-title,
@@ -736,8 +786,9 @@ h2.section-title {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 1.1rem;
-  border: 2px solid var(--ink);
+  border-radius: 0;
+  border: 0;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
   background: #efe4d4;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -920,8 +971,13 @@ h2.section-title {
 .member {
   display: grid;
   gap: 0.35rem;
-  padding: 1.4rem 0;
+  padding: 1.15rem 0 1.15rem 0.9rem;
   border-top: 1px solid var(--line);
+  border-left: 2px solid transparent;
+}
+
+.member:hover {
+  border-left-color: #e23b2f;
 }
 
 .member h3 {
@@ -1116,7 +1172,18 @@ html[data-night="true"] .cursor-ring {
     box-shadow: 24px 0 70px rgba(0, 0, 0, 0.45);
   }
   .tour-stage {
-    padding: 8.5rem 3.4rem 2.4rem 2.4rem;
+    height: 100svh;
+    min-height: 100svh;
+    padding: 6.6rem 2.6rem 1.1rem 2rem;
+  }
+  .tour-stage h1.section-title {
+    font-size: clamp(3.2rem, 6vw, 5.4rem);
+  }
+  .tour-list {
+    margin-top: 0.45rem;
+  }
+  .tour-row {
+    padding: 0.4rem 0;
   }
   .tour-spine {
     display: flex;
@@ -1336,55 +1403,77 @@ html[data-night="true"] .cursor-ring {
   }
   .tour-stage {
     display: block;
+    height: 100svh;
+    height: 100dvh;
     min-height: 0;
-    overflow: visible;
-    padding: 7.2rem 0 0;
+    overflow: hidden;
+    padding: 0;
   }
   .tour-plate {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
   }
   .tour-still {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
   }
   .tour-grade {
-    background: linear-gradient(180deg, rgba(7, 6, 12, 0.16) 0%, rgba(7, 6, 12, 0) 18%);
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0.28) 0%, rgba(7, 6, 12, 0) 16%, rgba(7, 6, 12, 0) 42%, rgba(7, 6, 12, 0.35) 100%);
   }
   .tour-stage h1.section-title,
   .tour-date,
   .tour-row h2,
+  .tour-year,
   .tour-row p {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    color: #fff8f2;
+    text-shadow: none;
+  }
+  .tour-intro .eyebrow {
+    text-shadow: none;
   }
   .tour-stage h1.section-title {
-    font-size: clamp(3rem, 13vw, 4.2rem);
+    font-size: clamp(2.5rem, 11vw, 3.3rem);
   }
   .tour-layout {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: 0.55rem;
+    right: 0.55rem;
+    bottom: 0.55rem;
     z-index: 3;
     width: auto;
     margin: 0;
-    padding: 1.2rem 0.95rem 0.7rem;
-    background: linear-gradient(180deg, rgba(7, 6, 12, 0) 0%, rgba(7, 6, 12, 0.18) 42%, rgba(7, 6, 12, 0.34) 100%);
+    padding: 0.65rem 0.6rem 0.4rem;
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0.5), rgba(7, 6, 12, 0.78));
+    border: 1px solid rgba(255, 248, 242, 0.2);
   }
   .tour-list {
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
   }
   .tour-row {
-    grid-template-columns: 4.7rem minmax(0, 1fr) auto;
-    padding: 0.38rem 0;
+    grid-template-columns: 4.4rem minmax(0, 1fr) auto;
+    margin-top: 0;
+    padding: 0.28rem 0;
+    border-top: 1px solid rgba(255, 248, 242, 0.18);
+    background: transparent;
+  }
+  .tour-row h2 {
+    font-size: 1rem;
+  }
+  .tour-year,
+  .tour-row p {
+    margin-top: 0;
+    font-size: 0.72rem;
+    color: rgba(255, 248, 242, 0.86);
   }
   .tour-date {
-    font-size: 1.02rem;
+    font-size: 0.95rem;
     white-space: nowrap;
   }
   .tour-row a {
