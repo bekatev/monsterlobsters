@@ -499,13 +499,6 @@ html[data-film="true"] .cursor-ring {
 
 .future-name .display span {
   display: inline-block;
-  transform-origin: center bottom;
-  text-shadow: 0.06em 0 rgba(255, 64, 48, 0.28), -0.06em 0 rgba(120, 244, 255, 0.28);
-}
-
-.reel-frame {
-  transform: perspective(1100px) rotateX(calc(var(--tilt-x, 0deg) * 0.45)) rotateY(calc(var(--tilt-y, 0deg) * 0.45));
-  transition: transform 0.5s ease;
 }
 
 .line-mask {
@@ -865,14 +858,17 @@ h2.section-title {
   position: absolute;
   left: 0.7rem;
   bottom: 0.65rem;
-  z-index: 1;
+  z-index: 5;
+  max-width: calc(100% - 1.4rem);
   font-weight: 700;
   letter-spacing: -0.04em;
-  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  background: rgba(7, 6, 12, 0.72);
+  padding: 0.28rem 0.55rem;
 }
 
 .play {
   position: absolute;
+  z-index: 5;
   right: 0.7rem;
   top: 0.7rem;
   width: 2.3rem;
@@ -1355,13 +1351,13 @@ html[data-night="true"] .cursor-ring {
     object-fit: contain;
   }
   .tour-grade {
-    background: linear-gradient(
-      180deg,
-      rgba(7, 6, 12, 0.28) 0%,
-      rgba(7, 6, 12, 0) 24%,
-      rgba(7, 6, 12, 0.08) 46%,
-      rgba(7, 6, 12, 0.72) 100%
-    );
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0.16) 0%, rgba(7, 6, 12, 0) 18%);
+  }
+  .tour-stage h1.section-title,
+  .tour-date,
+  .tour-row h2,
+  .tour-row p {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
   }
   .tour-stage h1.section-title {
     font-size: clamp(3rem, 13vw, 4.2rem);
@@ -1374,8 +1370,8 @@ html[data-night="true"] .cursor-ring {
     z-index: 3;
     width: auto;
     margin: 0;
-    padding: 2.6rem 0.95rem 0.85rem;
-    background: linear-gradient(180deg, rgba(7, 6, 12, 0), rgba(7, 6, 12, 0.9) 30%);
+    padding: 1.2rem 0.95rem 0.7rem;
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0) 0%, rgba(7, 6, 12, 0.18) 42%, rgba(7, 6, 12, 0.34) 100%);
   }
   .tour-list {
     margin-top: 0.35rem;
@@ -1392,12 +1388,6 @@ html[data-night="true"] .cursor-ring {
     grid-column: auto;
     justify-self: end;
     margin-top: 0;
-  }
-  .future-name .display span {
-    text-shadow: none;
-  }
-  .reel-frame {
-    transform: none;
   }
   .reel-sticky {
     padding-top: 7.2rem;
@@ -1541,21 +1531,31 @@ html[data-night="true"] .cursor-ring {
 @media (min-width: 760px) {
   .reel-sticky {
     display: grid;
-    grid-template-columns: minmax(11rem, 18rem) minmax(0, 1fr);
+    grid-template-columns: minmax(16rem, 24rem) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: 1.6rem;
     align-items: stretch;
     padding: 9.2rem 2.2rem 1.3rem;
   }
   .reel-head {
+    position: relative;
+    z-index: 3;
     align-self: stretch;
     display: flex;
     flex-direction: column;
+    min-width: 0;
     padding-bottom: 0.4rem;
+    padding-right: 0.4rem;
+  }
+  .reel-head .section-title {
+    font-size: clamp(2.4rem, 3.4vw, 3.8rem);
   }
   .reel-count {
     margin-top: auto;
+    font-size: clamp(2.6rem, 4vw, 4.4rem);
   }
   .reel-frame {
+    z-index: 1;
     grid-column: 2;
     grid-row: 1;
   }

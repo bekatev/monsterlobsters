@@ -18,8 +18,8 @@ export default function Hero() {
         {LINES.map((line, index) => (
           <div className="display" key={line}>
             <motion.span
-              initial={{ y: "70%", rotateX: 55, opacity: 0 }}
-              animate={{ y: "0%", rotateX: 0, opacity: 1 }}
+              initial={{ y: "110%" }}
+              animate={{ y: "0%" }}
               transition={{ duration: 0.9, delay: 0.12 * index, ease }}
             >
               {line}
