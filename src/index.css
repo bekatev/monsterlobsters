@@ -117,6 +117,19 @@ html[data-night="true"] .grain {
   z-index: 2;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(142, 246, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 246, 255, 0.045) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
+}
+
 .nav {
   position: fixed;
   top: 0;
@@ -260,6 +273,30 @@ html[data-night="true"] .grain {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+}
+
+.hud-corner {
+  position: absolute;
+  z-index: 2;
+  width: 1.15rem;
+  height: 1.15rem;
+  pointer-events: none;
+  border: 1.5px solid rgba(255, 248, 242, 0.85);
+}
+
+.hud-a {
+  top: 0.7rem;
+  left: 0.7rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.hud-b {
+  right: 0.7rem;
+  bottom: 0.7rem;
+  border-left: 0;
+  border-top: 0;
 }
 
 html[data-film="true"] .nav {
@@ -463,6 +500,7 @@ html[data-film="true"] .cursor-ring {
 .future-name .display span {
   display: inline-block;
   transform-origin: center bottom;
+  text-shadow: 0.06em 0 rgba(255, 64, 48, 0.28), -0.06em 0 rgba(120, 244, 255, 0.28);
 }
 
 .reel-frame {
@@ -607,7 +645,20 @@ section {
 }
 
 .panel {
+  position: relative;
   padding: 5.5rem 1.15rem;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #ff4a38, #8ef6ff, transparent);
+  opacity: 0.55;
 }
 
 .eyebrow {
@@ -1285,12 +1336,10 @@ html[data-night="true"] .cursor-ring {
     font-size: min(3.4rem, calc((100vw - 3.2rem) / 8.2));
   }
   .tour-stage {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    display: block;
     min-height: 0;
     overflow: visible;
-    padding: 7.6rem 0 1.4rem;
+    padding: 7.2rem 0 0;
   }
   .tour-plate {
     position: relative;
@@ -1305,16 +1354,47 @@ html[data-night="true"] .cursor-ring {
     height: auto;
     object-fit: contain;
   }
+  .tour-grade {
+    background: linear-gradient(
+      180deg,
+      rgba(7, 6, 12, 0.28) 0%,
+      rgba(7, 6, 12, 0) 24%,
+      rgba(7, 6, 12, 0.08) 46%,
+      rgba(7, 6, 12, 0.72) 100%
+    );
+  }
+  .tour-stage h1.section-title {
+    font-size: clamp(3rem, 13vw, 4.2rem);
+  }
   .tour-layout {
-    padding: 1.15rem 1.05rem 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    width: auto;
+    margin: 0;
+    padding: 2.6rem 0.95rem 0.85rem;
+    background: linear-gradient(180deg, rgba(7, 6, 12, 0), rgba(7, 6, 12, 0.9) 30%);
+  }
+  .tour-list {
+    margin-top: 0.35rem;
   }
   .tour-row {
-    grid-template-columns: 4.2rem minmax(0, 1fr);
+    grid-template-columns: 4.7rem minmax(0, 1fr) auto;
+    padding: 0.38rem 0;
+  }
+  .tour-date {
+    font-size: 1.02rem;
+    white-space: nowrap;
   }
   .tour-row a {
-    grid-column: 2;
-    justify-self: start;
-    margin-top: 0.35rem;
+    grid-column: auto;
+    justify-self: end;
+    margin-top: 0;
+  }
+  .future-name .display span {
+    text-shadow: none;
   }
   .reel-frame {
     transform: none;

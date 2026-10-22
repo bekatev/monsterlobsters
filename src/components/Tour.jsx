@@ -8,6 +8,8 @@ export default function Tour() {
       <div className="tour-plate" aria-hidden="true">
         <img className="tour-still" src={asset("/photos/phone.jpg")} alt="" />
         <div className="tour-grade" />
+        <span className="hud-corner hud-a" />
+        <span className="hud-corner hud-b" />
       </div>
       <p className="tour-spine">
         <span>Travel Guide Tour</span>
@@ -24,10 +26,9 @@ export default function Tour() {
             <motion.li
               className="tour-row"
               key={`${show.date}-${show.city}`}
-              initial={{ opacity: 0, x: 36 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 0.55, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08 + index * 0.05, ease: [0.16, 1, 0.3, 1] }}
             >
               <div>
                 <p className="tour-date">{show.date}</p>
