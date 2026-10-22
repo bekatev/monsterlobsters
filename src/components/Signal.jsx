@@ -6,6 +6,7 @@ import ScrollReel from "./ScrollReel"
 const FILMS = VIDEOS.slice(0, 4)
 
 const FRAMES = [
+  { src: "/photos/phone.jpg", alt: "The band photographed from above in a tiled room, one holding a sunflower." },
   { src: "/photos/red-couch.jpg", alt: "The band around a red sofa in front of gold curtains." },
   { src: "/photos/egg.jpg", alt: "Members of the band on a mustard sofa under a fried-egg sculpture." },
   { src: "/photos/festival.jpg", alt: "A guitarist playing to a packed outdoor crowd." },
