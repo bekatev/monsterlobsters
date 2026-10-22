@@ -2,6 +2,9 @@ import { useState } from "react"
 import { MORE_VIDEOS, SHOWS, SONGS, VIDEOS } from "../data"
 import { asset } from "../asset"
 import { scrollToId } from "../hooks"
+import ScrollReel from "./ScrollReel"
+
+const FILMS = [...VIDEOS, ...MORE_VIDEOS]
 
 function Film({ video, active, setActive }) {
   const playing = active === video.id
@@ -75,50 +78,37 @@ export function Listen() {
 export function Watch() {
   const [active, setActive] = useState(null)
   return (
-    <section className="panel" id="watch" aria-labelledby="watch-title">
-      <p className="eyebrow">Watch</p>
-      <h2 className="section-title" id="watch-title">
-        Videos.
-      </h2>
-      <p className="prose mb-6">Official videos.</p>
-      <div className="video-grid">
-        {VIDEOS.map((video) => (
-          <Film key={video.id} video={video} active={active} setActive={setActive} />
-        ))}
-      </div>
-      <div className="pills mt-6">
-        {MORE_VIDEOS.map((video) => (
-          <a key={video.id} href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer">
-            {video.title}
-          </a>
-        ))}
-        <a href="https://www.youtube.com/@4DMonsterLobsters" target="_blank" rel="noreferrer">
+    <ScrollReel
+      id="watch"
+      eyebrow="Watch"
+      title="Videos."
+      note={
+        <a className="text-link" href="https://www.youtube.com/@4DMonsterLobsters" target="_blank" rel="noreferrer">
           Whole channel
         </a>
-      </div>
-    </section>
+      }
+      items={FILMS}
+      getKey={(video) => video.id}
+      onChange={() => setActive(null)}
+      render={(video) => <Film video={video} active={active} setActive={setActive} />}
+    />
   )
 }
 
 export function Live() {
   return (
-    <section className="panel" id="live" aria-labelledby="live-title">
-      <p className="eyebrow">Live</p>
-      <h2 className="section-title" id="live-title">
-        The shows.
-      </h2>
-      <p className="serif text-2xl md:text-4xl max-w-3xl leading-none mt-3 mb-8">
+    <ScrollReel
+      id="live"
+      eyebrow="Live"
+      title="The shows."
+      note={
         <button className="text-link" onClick={() => scrollToId("tour")}>
           Dates and tickets
         </button>
-      </p>
-      <div className="show-grid">
-        {SHOWS.map((photo) => (
-          <figure key={photo.src}>
-            <img src={asset(photo.src)} alt={photo.alt} />
-          </figure>
-        ))}
-      </div>
-    </section>
+      }
+      items={SHOWS}
+      getKey={(photo) => photo.src}
+      render={(photo) => <img src={asset(photo.src)} alt={photo.alt} />}
+    />
   )
 }

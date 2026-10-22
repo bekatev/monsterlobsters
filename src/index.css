@@ -1237,6 +1237,172 @@ html[data-night="true"] .cursor-ring {
   }
 }
 
+.reel {
+  position: relative;
+}
+
+.reel-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 8.4rem 1.05rem 1.2rem;
+  overflow: hidden;
+}
+
+.reel-head .section-title {
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+}
+
+.reel-head .text-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+}
+
+.reel-count {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(3.4rem, 8vw, 6.4rem);
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+}
+
+.reel-count span {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 0.28em;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.reel-frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #120e14;
+  overflow: hidden;
+}
+
+.reel-media,
+.reel-media .film,
+.reel-frame > img,
+.reel-flat .reel-frame img,
+.reel-flat .reel-frame .film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.reel-media > img,
+.reel-frame .film iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+
+.reel-frame .film img {
+  position: absolute;
+  inset: -14% 0;
+  width: 100%;
+  height: 128%;
+  object-fit: cover;
+}
+
+.reel-frame .film {
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.reel-scan {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: var(--scan, 0%);
+  height: 18%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(255, 248, 242, 0.16), transparent);
+  mix-blend-mode: screen;
+}
+
+.reel-bracket {
+  position: absolute;
+  z-index: 4;
+  width: 1.4rem;
+  height: 1.4rem;
+  pointer-events: none;
+  border: 1.5px solid rgba(255, 248, 242, 0.85);
+}
+
+.reel-bracket-a {
+  top: 0.7rem;
+  left: 0.7rem;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.reel-bracket-b {
+  right: 0.7rem;
+  bottom: 0.7rem;
+  border-left: 0;
+  border-top: 0;
+}
+
+.reel-meter {
+  height: 2px;
+  background: var(--line);
+}
+
+.reel-meter span {
+  display: block;
+  height: 100%;
+  background: #e23b2f;
+}
+
+.reel-flat .reel-frame {
+  height: 72vh;
+  margin-top: 1rem;
+}
+
+@media (min-width: 760px) {
+  .reel-sticky {
+    display: grid;
+    grid-template-columns: minmax(11rem, 18rem) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: stretch;
+    padding: 9.2rem 2.2rem 1.3rem;
+  }
+  .reel-head {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.4rem;
+  }
+  .reel-count {
+    margin-top: auto;
+  }
+  .reel-frame {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .reel-meter {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .reel-sticky {
+    padding-left: 8.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .rail-singles,

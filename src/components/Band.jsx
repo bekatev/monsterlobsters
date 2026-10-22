@@ -1,5 +1,6 @@
 import { asset } from "../asset"
 import { MEMBERS, PORTRAITS, SOCIALS } from "../data"
+import ScrollReel from "./ScrollReel"
 
 export default function Band() {
   return (
@@ -24,13 +25,14 @@ export default function Band() {
           ))}
         </div>
       </div>
-      <div className="portrait-grid" aria-label="Portraits of the band">
-        {PORTRAITS.map((photo) => (
-          <figure key={photo.src}>
-            <img src={asset(photo.src)} alt={photo.alt} />
-          </figure>
-        ))}
-      </div>
+      <ScrollReel
+        id="portraits"
+        eyebrow="Portraits"
+        title="Frames."
+        items={PORTRAITS}
+        getKey={(photo) => photo.src}
+        render={(photo) => <img src={asset(photo.src)} alt={photo.alt} />}
+      />
       <footer className="footer" id="contact">
         <p className="eyebrow">Contact</p>
         <h2 className="footer-word">
