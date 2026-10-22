@@ -1,25 +1,21 @@
 import { asset } from "../asset"
-import { MEMBERS, SOCIALS } from "../data"
+import { SOCIALS } from "../data"
 
 export default function Band() {
   return (
-    <section className="panel" id="band" aria-labelledby="band-title">
+    <section className="panel" id="band" aria-label="The band">
       <div className="band-grid">
         <div>
           <p className="eyebrow">The band</p>
-          <h2 className="section-title" id="band-title">
-            Today’s lineup.
-          </h2>
           <p className="prose">Lobster Rock. Tbilisi.</p>
           <figure className="logo-plate">
             <img src={asset("/brand/logo-mark.png")} alt="4D Monster Lobsters" />
           </figure>
         </div>
         <div>
-          {MEMBERS.map((member, index) => (
-            <article className="member" key={member.name}>
-              <p className="role">0{index + 1}</p>
-              <h3>{member.name}</h3>
+          {["Tika", "Andria", "Niku", "Beka"].map((name) => (
+            <article className="member" key={name}>
+              <h3>{name}</h3>
             </article>
           ))}
         </div>

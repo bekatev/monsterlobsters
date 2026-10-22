@@ -1063,7 +1063,6 @@ html[data-night="true"] .cursor-ring {
     width: min(52vw, calc(100svh * 0.666));
     object-fit: cover;
     object-position: center;
-    transform-origin: left center;
     box-shadow: 24px 0 70px rgba(0, 0, 0, 0.45);
   }
   .tour-stage {
@@ -1265,6 +1264,64 @@ html[data-night="true"] .cursor-ring {
   .intro-card {
     scroll-snap-align: start;
   }
+  .brand-logo {
+    width: 8.2rem;
+  }
+  .hero,
+  .hero > *,
+  .future-name,
+  .display,
+  .footer-word,
+  .panel,
+  .song-row,
+  .song-row > span {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .display {
+    font-size: min(3.15rem, calc((100vw - 2.8rem) / 8.6));
+  }
+  .footer-word {
+    font-size: min(3.4rem, calc((100vw - 3.2rem) / 8.2));
+  }
+  .tour-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    overflow: visible;
+    padding: 7.6rem 0 1.4rem;
+  }
+  .tour-plate {
+    position: relative;
+    inset: auto;
+    width: 100%;
+  }
+  .tour-still {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .tour-layout {
+    padding: 1.15rem 1.05rem 0;
+  }
+  .tour-row {
+    grid-template-columns: 4.2rem minmax(0, 1fr);
+  }
+  .tour-row a {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0.35rem;
+  }
+  .reel-frame {
+    transform: none;
+  }
+  .reel-sticky {
+    padding-top: 7.2rem;
+  }
 }
 
 .reel {
@@ -1430,21 +1487,6 @@ html[data-night="true"] .cursor-ring {
 @media (min-width: 1100px) {
   .reel-sticky {
     padding-left: 8.5rem;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .tour-still {
-    animation: slab 9s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes slab {
-  from {
-    transform: perspective(1200px) rotateY(7deg) translateY(0);
-  }
-  to {
-    transform: perspective(1200px) rotateY(15deg) translateY(-12px);
   }
 }
 
