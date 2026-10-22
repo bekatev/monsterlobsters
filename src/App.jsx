@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion"
 import Lenis from "lenis"
 import "lenis/dist/lenis.css"
 import InkField from "./components/InkField"
-import { Cursor, Loader, Marquee, Nav, Rail } from "./components/Chrome"
+import { Cursor, Loader, Nav, Rail } from "./components/Chrome"
 import Hero from "./components/Hero"
 import { Records, ReleaseModal, Singles } from "./components/Records"
 import { Listen, Optics, Watch } from "./components/Signal"
@@ -112,7 +112,6 @@ export default function App() {
         <main>
           <Tour />
           <Hero />
-          <Marquee />
           <Records onOpen={setRelease} />
           <Singles />
           <Optics />
