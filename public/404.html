@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>4D Monster Lobsters</title>
+<script>
+  var path = location.pathname
+  if (/\/kyoto\/?$/.test(path)) {
+    try { sessionStorage.setItem("kyoto-redirect", path) } catch (e) {}
+  }
+  var parts = path.split("/").filter(Boolean)
+  var base = parts.length > 1 ? "/" + parts[0] + "/" : "/"
+  location.replace(base)
+</script>

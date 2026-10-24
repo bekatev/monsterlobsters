@@ -21,6 +21,16 @@ export function useReducedMotion() {
   return useMedia("(prefers-reduced-motion: reduce)")
 }
 
+export function withBase(path) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "")
+  if (!path || path === "/") return base ? `${base}/` : "/"
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`
+}
+
+export function isKyotoPath(path = "") {
+  return /\/kyoto\/?$/.test(path)
+}
+
 export function navigate(path) {
   if (window.location.pathname !== path) {
     window.history.pushState({}, "", path)

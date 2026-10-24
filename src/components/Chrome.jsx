@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { asset } from "../asset"
 import { MARQUEE } from "../data"
-import { scrollToId, useReducedMotion } from "../hooks"
+import { navigate, scrollToId, useReducedMotion, withBase } from "../hooks"
 
 export const Loader = forwardRef(function Loader({ onDone }, ref) {
   const reduce = useReducedMotion()
@@ -111,6 +111,9 @@ export function Nav({ active, open, setOpen }) {
           </button>
         ))}
       </nav>
+      <button className="kyoto-nav" onClick={() => navigate(withBase("/kyoto"))}>
+        Kyoto
+      </button>
       <button className="menu-btn" aria-expanded={open} onClick={() => setOpen(true)}>
         Menu
       </button>
@@ -125,6 +128,18 @@ export function Nav({ active, open, setOpen }) {
             <button className="menu-btn self-end" onClick={() => setOpen(false)}>
               Close
             </button>
+            <button
+              className="kyoto-menu"
+              onClick={() => {
+                setOpen(false)
+                navigate(withBase("/kyoto"))
+              }}
+            >
+              Kyoto
+            </button>
+            <a className="fund-menu" href="https://www.kisa.ge/donate/lobster" target="_blank" rel="noreferrer">
+              Fund us
+            </a>
             {LINKS.map(([id, label]) => (
               <button
                 key={id}

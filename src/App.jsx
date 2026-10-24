@@ -8,8 +8,9 @@ import Hero from "./components/Hero"
 import { Records, ReleaseModal, Singles } from "./components/Records"
 import { Listen, Optics, Watch } from "./components/Signal"
 import Band from "./components/Band"
-import { useReducedMotion } from "./hooks"
+import { isKyotoPath, usePathname, useReducedMotion } from "./hooks"
 import Tour from "./components/Tour"
+import Kyoto from "./components/Kyoto"
 
 const TINTS = {
   tour: [1, 0.21, 0.21],
@@ -23,6 +24,7 @@ const TINTS = {
 
 export default function App() {
   const reduce = useReducedMotion()
+  const kyoto = isKyotoPath(usePathname())
   const [booting, setBooting] = useState(true)
   const [menu, setMenu] = useState(false)
   const [active, setActive] = useState("tour")
@@ -31,7 +33,7 @@ export default function App() {
   const finishBoot = useCallback(() => setBooting(false), [])
 
   useEffect(() => {
-    if (reduce) return
+    if (kyoto || reduce) return
     const lenis = new Lenis({
       lerp: 0.085,
       smoothWheel: true,
@@ -49,7 +51,7 @@ export default function App() {
       lenis.destroy()
       delete window.__lenis
     }
-  }, [reduce])
+  }, [kyoto, reduce])
 
   useEffect(() => {
     const sections = ["tour", "top", "records", "signal", "watch", "listen", "band"]
@@ -98,6 +100,8 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.film = active === "tour" ? "true" : "false"
   }, [active])
+
+  if (kyoto) return <Kyoto />
 
   return (
     <>
