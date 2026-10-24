@@ -169,7 +169,7 @@ html[data-night="true"] .grain {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: #f1ebde;
+  background: #14110f;
 }
 
 .tour-still,
@@ -1168,6 +1168,7 @@ html[data-night="true"] .cursor-ring {
   .tour-stage {
     height: auto;
     min-height: 100svh;
+    align-items: center;
     padding: 6.6rem 2.6rem 1.1rem 2rem;
   }
   .tour-stage h1.section-title {
@@ -1406,12 +1407,15 @@ html[data-night="true"] .cursor-ring {
     bottom: 0;
   }
   .tour-stage {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: auto;
     min-height: 100svh;
     min-height: 100dvh;
     overflow: visible;
-    padding: 0;
+    padding: 5.6rem 0.65rem 1.2rem;
+    box-sizing: border-box;
   }
   .tour-plate {
     position: absolute;
@@ -1449,9 +1453,9 @@ html[data-night="true"] .cursor-ring {
     z-index: 3;
     display: flex;
     flex-direction: column;
-    width: auto;
-    min-height: calc(100dvh - 7.2rem);
-    margin: 6.3rem 0.65rem 0.65rem;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
     padding: 0.7rem 0.65rem 0.4rem;
     background: rgba(20, 17, 15, 0.86);
     color: #f1ebde;
@@ -1462,15 +1466,15 @@ html[data-night="true"] .cursor-ring {
     flex: none;
   }
   .tour-list {
-    flex: 1;
+    flex: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: 0;
     margin-top: 0.35rem;
   }
   .tour-row {
-    flex: 1;
+    flex: none;
     grid-template-columns: max-content minmax(0, 1fr) auto;
     align-items: center;
     margin-top: 0;
@@ -1724,21 +1728,24 @@ html[data-night="true"] .cursor-ring {
     display: none;
   }
   .tour-stage {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: auto;
     min-height: 100svh;
     min-height: 100dvh;
     overflow: visible;
-    padding: 0;
+    padding: 6.2rem 1.2rem 1.4rem;
+    box-sizing: border-box;
   }
   .tour-layout {
     position: relative;
     z-index: 3;
     display: flex;
     flex-direction: column;
-    width: auto;
-    min-height: calc(100dvh - 8rem);
-    margin: 7rem 1.2rem 1rem;
+    width: min(100%, 40rem);
+    min-height: 0;
+    margin: 0;
     padding: 0.9rem 0.9rem 0.55rem;
     background: rgba(20, 17, 15, 0.86);
     color: #f1ebde;
@@ -1746,14 +1753,14 @@ html[data-night="true"] .cursor-ring {
     box-shadow: inset 3px 0 0 #ff3535;
   }
   .tour-list {
-    flex: 1;
+    flex: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 0.4rem;
   }
   .tour-row {
-    flex: 1 1 auto;
+    flex: none;
     grid-template-columns: 5.2rem minmax(0, 1fr) auto;
     min-width: 0;
   }
@@ -1772,9 +1779,12 @@ html[data-night="true"] .cursor-ring {
   .brand-logo {
     width: 6.2rem;
   }
+  .tour-stage {
+    padding: 6rem 0.45rem 0.9rem;
+  }
   .tour-layout {
-    margin: 5.3rem 0.45rem 0.45rem;
-    min-height: calc(100dvh - 6rem);
+    margin: 0;
+    min-height: 0;
     padding: 0.5rem 0.45rem 0.3rem;
   }
   .tour-row {
