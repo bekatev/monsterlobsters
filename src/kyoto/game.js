@@ -257,7 +257,8 @@ function cpuInput(me, foe) {
   const dist = foe.x - me.x
   const ad = Math.abs(dist)
   const attacking = foe.move && foe.moveFrame >= Math.max(0, foe.move.startup - 2) && foe.moveFrame < foe.move.startup + foe.move.active
-  if (attacking && ad < 92 && Math.random() < 0.4) {
+  const recovering = foe.move && foe.moveFrame >= foe.move.startup + foe.move.active
+  if (attacking && ad < 240 && Math.random() < 0.7) {
     input.block = true
     return input
   }
@@ -273,20 +274,23 @@ function cpuInput(me, foe) {
   }
   if (me.cpuWait > 0) {
     me.cpuWait -= 1
-    if (Math.random() < 0.18) input.block = true
+    if (attacking || Math.random() < 0.24) input.block = true
     return input
   }
   const roll = Math.random()
-  if (roll < 0.01) {
-    input.special = true
-    me.cpuWait = 42
-  } else if (roll < 0.028) {
-    input.kick = true
-    me.cpuWait = 28
-  } else if (roll < 0.05) {
+  if (recovering && roll < 0.55) {
     input.punch = true
-    me.cpuWait = 20
-  } else if (Math.random() < 0.2) input.block = true
+    me.cpuWait = 10
+  } else if (roll < 0.04) {
+    input.special = true
+    me.cpuWait = 30
+  } else if (roll < 0.12) {
+    input.kick = true
+    me.cpuWait = 14
+  } else if (roll < 0.22) {
+    input.punch = true
+    me.cpuWait = 10
+  } else if (Math.random() < 0.34) input.block = true
   return input
 }
 

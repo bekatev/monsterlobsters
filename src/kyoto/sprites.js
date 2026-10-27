@@ -42,15 +42,16 @@ function sheet() {
       for (let oy = -sr; oy <= sr; oy += 1) {
         for (let ox = -sr; ox <= sr; ox += 1) {
           if (ox * ox + oy * oy > sr * sr + 0.2) continue
-          let shade = oy < -sr * 0.28 ? light : oy > sr * 0.32 ? dark : mid
-          if (shade === mid && ((ox + oy + i) & 3) === 0) shade = dark
-          if (shade === light && ((ox + oy) & 3) === 0) shade = mid
+          const shade = oy < -sr * 0.55 ? light : oy > sr * 0.62 ? dark : mid
           put(x + ox, y + oy, shade)
         }
       }
     }
   }
-  return { px, disc, limb, idx, cols }
+  const cap = (x, y, r, _light, mid) => {
+    disc(x, y, r, mid)
+  }
+  return { px, disc, limb, cap, idx, cols }
 }
 
 function bake(s, anchor) {
@@ -217,76 +218,93 @@ function flame(s, x, y) {
   bits.forEach(([dx, dy, r, color]) => s.disc(x + dx, y + dy, r, color))
 }
 
-function along(a, b, t) {
-  return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]
-}
-
 function fighterSheet(look, pose, mirror) {
   const s = sheet()
   const skin = ["#f8d0b0", "#e8a878", "#c07848"]
   const cloth = {
-    gi: ["#f7fbf2", "#d7e4c8", "#8ea67a"],
-    green: ["#8dff9e", "#22c84c", "#0c6e30"],
-    fan: ["#ff9ae0", "#e040c0", "#8a1868"],
-    plaid: ["#fff6ea", "#e7dcc8", "#b09878"],
-    lobster: ["#ffb0a8", "#ff3535", "#9a1818"],
-    lantern: ["#ffc4d0", "#ef7392", "#a04058"],
+    gi: ["#f7fbf2", "#e4eed8", "#b7c9a4"],
+    green: ["#d8ffc8", "#3ad85a", "#1c9a38"],
+    fan: ["#ffc4ee", "#ee62d0", "#b03090"],
+    plaid: ["#fff8ee", "#f0e6d4", "#cbb89a"],
+    lobster: ["#ffc4bc", "#ff4a42", "#c02020"],
+    lantern: ["#ffd0da", "#f090a8", "#c05878"],
   }[look]
   const main = mirror ? ["#ffb4b0", "#ff3535", "#b01818"] : cloth
   const pants = look === "green" ? ["#4a4036", "#1a1612", "#0c0a08"] : look === "plaid" ? ["#f0ddb8", "#c6b496", "#8a7450"] : main
   const feet = look === "green" ? ["#f4a068", "#e07038", "#b85020"] : look === "plaid" ? ["#ffffff", "#e4e0d8", "#6e6458"] : skin
   const leg = look === "plaid" ? skin : pants
+  const sleeve = look === "lobster" ? skin : main
 
   if (pose === "ko") {
-    s.limb(8, 70, 36, 66, 6, skin[0], skin[1], skin[2])
-    s.limb(30, 66, 78, 64, 7, main[0], main[1], main[2])
-    s.limb(70, 66, 118, 68, 5, leg[0], leg[1], leg[2])
-    portrait(s, 16, 58, look)
-    return bake(s, 40)
+    const ground = 82
+    s.limb(62, ground, 84, 64, 5.2, leg[0], leg[1], leg[2])
+    s.limb(84, 64, 102, ground + 2, 4.4, leg[0], leg[1], leg[2])
+    s.cap(62, ground, 5.4, leg[0], leg[1], leg[2])
+    s.cap(84, 64, 4.6, leg[0], leg[1], leg[2])
+    s.limb(66, ground + 2, 92, ground + 4, 4.6, leg[0], leg[1], leg[2])
+    s.limb(92, ground + 4, 112, ground, 4, leg[0], leg[1], leg[2])
+    s.cap(112, ground, 4.2, feet[0], feet[1], feet[2])
+    s.limb(30, 74, 60, ground - 4, 8.4, main[0], main[1], main[2])
+    s.cap(46, ground - 6, 9.2, main[0], main[1], main[2])
+    s.limb(28, 70, 20, 60, 3.6, sleeve[0], sleeve[1], sleeve[2])
+    s.limb(20, 60, 14, 68, 3, skin[0], skin[1], skin[2])
+    s.cap(14, 68, 3.2, skin[0], skin[1], skin[2])
+    s.limb(42, 72, 54, 64, 3.4, sleeve[0], sleeve[1], sleeve[2])
+    s.cap(54, 64, 3.2, skin[0], skin[1], skin[2])
+    s.limb(24, 68, 34, 76, 4.2, skin[0], skin[1], skin[2])
+    if (look === "gi") s.limb(38, ground - 4, 54, ground - 4, 1.3, "#14110e", "#14110e", "#14110e")
+    if (look !== "lobster") portrait(s, 18, 60, look)
+    else {
+      s.disc(18, 60, 8, main[1])
+      s.disc(22, 58, 1.1, "#f7f4ee")
+    }
+    return bake(s, 70)
   }
 
   const j = {
-    head: [34, 18],
-    neck: [34, 30],
-    chest: [36, 40],
-    hip: [34, 54],
-    shB: [28, 32],
-    elB: [18, 40],
-    haB: [22, 48],
-    shF: [42, 32],
-    elF: [52, 28],
-    haF: [48, 20],
-    hipB: [28, 54],
-    knB: [22, 68],
-    foB: [24, 84],
-    hipF: [40, 54],
-    knF: [50, 68],
+    head: [36, 18],
+    neck: [36, 30],
+    chest: [37, 42],
+    hip: [36, 56],
+    shB: [24, 36],
+    elB: [16, 48],
+    haB: [20, 58],
+    shF: [50, 36],
+    elF: [58, 28],
+    haF: [52, 18],
+    hipB: [30, 58],
+    knB: [24, 72],
+    foB: [26, 84],
+    hipF: [44, 58],
+    knF: [52, 72],
     foF: [58, 84],
   }
 
   if (pose === "punch") {
-    j.elF = [74, 34]
-    j.haF = [104, 32]
-    j.chest = [40, 40]
+    j.chest = [40, 42]
     j.head = [38, 18]
+    j.neck = [39, 30]
+    j.shF = [50, 38]
+    j.elF = [64, 36]
+    j.haF = [78, 34]
   }
   if (pose === "kick") {
-    j.head = [20, 38]
-    j.neck = [28, 40]
-    j.chest = [42, 44]
-    j.hip = [60, 48]
-    j.hipB = [54, 50]
-    j.knB = [48, 64]
-    j.foB = [44, 84]
-    j.hipF = [64, 46]
-    j.knF = [98, 34]
-    j.foF = [136, 26]
-    j.shB = [32, 42]
-    j.elB = [24, 50]
-    j.haB = [18, 58]
-    j.shF = [48, 40]
-    j.elF = [56, 34]
-    j.haF = [66, 30]
+    j.head = [28, 20]
+    j.neck = [32, 32]
+    j.chest = [38, 44]
+    j.hip = [42, 56]
+    j.hipB = [36, 58]
+    j.knB = [32, 72]
+    j.foB = [30, 84]
+    j.hipF = [48, 52]
+    j.knF = [66, 40]
+    j.foF = [82, 32]
+    j.shB = [28, 40]
+    j.elB = [18, 50]
+    j.haB = [16, 60]
+    j.shF = [46, 40]
+    j.elF = [54, 32]
+    j.haF = [60, 24]
   }
   if (pose === "block") {
     j.elF = [46, 24]
@@ -333,8 +351,8 @@ function fighterSheet(look, pose, mirror) {
   if (pose === "fire") {
     j.chest = [44, 40]
     j.head = [40, 18]
-    j.elF = [62, 38]
-    j.haF = [84, 36]
+    j.elF = [58, 36]
+    j.haF = [72, 34]
     j.knF = [58, 68]
     j.foF = [70, 84]
     j.foB = [16, 84]
@@ -344,70 +362,83 @@ function fighterSheet(look, pose, mirror) {
     j.haF = [62, 8]
   }
 
-  const sleeve = look === "lobster" ? skin : main
   const dress = look === "fan" || look === "lantern"
 
-  s.limb(j.hipB[0], j.hipB[1], j.knB[0], j.knB[1], 5, leg[0], leg[1], leg[2])
-  s.limb(j.knB[0], j.knB[1], j.foB[0], j.foB[1], 4, leg[0], leg[1], leg[2])
-  s.limb(j.shB[0], j.shB[1], j.elB[0], j.elB[1], 4, sleeve[0], sleeve[1], sleeve[2])
-  s.limb(j.elB[0], j.elB[1], j.haB[0], j.haB[1], 3, sleeve[0], sleeve[1], sleeve[2])
+  const seg = (a, b, r, colors) => {
+    s.limb(a[0], a[1], b[0], b[1], r, colors[0], colors[1], colors[2])
+    s.cap(a[0], a[1], r + 0.6, colors[0], colors[1], colors[2])
+    s.cap(b[0], b[1], r * 0.92, colors[0], colors[1], colors[2])
+  }
+
+  seg(j.hipB, j.knB, 5.4, leg)
+  seg(j.knB, j.foB, 4.4, leg)
+  seg(j.shB, j.elB, 4.3, sleeve)
+  seg(j.elB, j.haB, 3.5, sleeve)
 
   if (dress) {
     const [hx, hy] = j.hip
-    for (let row = 0; row < 32; row += 0.5) {
-      const half = 10 + row * 0.42
-      const y = hy + row
-      s.limb(hx - half, y, hx + half, y, 0.55, main[0], main[1], main[2])
+    for (let row = 0; row < 26; row += 1) {
+      const half = 11 + row * 0.34
+      s.limb(hx - half, hy + row, hx + half, hy + row, 1.35, main[0], main[1], main[2])
     }
+    s.cap(j.hip[0], j.hip[1] + 2, 11, main[0], main[1], main[2])
     if (look === "fan") {
-      s.disc(j.hip[0] - 4, j.hip[1] + 10, 2.4, "#3a62e0")
-      s.disc(j.hip[0] + 6, j.hip[1] + 16, 1.8, "#6a8cff")
-      s.disc(j.hip[0] - 1, j.hip[1] + 22, 2.1, "#3a62e0")
-      s.disc(j.hip[0] + 3, j.hip[1] + 26, 1.4, "#1c3f9a")
+      s.disc(j.hip[0] - 4, j.hip[1] + 8, 2.2, "#3a62e0")
+      s.disc(j.hip[0] + 5, j.hip[1] + 14, 1.7, "#6a8cff")
+      s.disc(j.hip[0] - 1, j.hip[1] + 18, 1.9, "#3a62e0")
     }
-  } else {
-    s.limb(j.hipF[0], j.hipF[1], j.knF[0], j.knF[1], 5, leg[0], leg[1], leg[2])
-    s.limb(j.knF[0], j.knF[1], j.foF[0], j.foF[1], 4, leg[0], leg[1], leg[2])
+  }
+  if (!dress || pose === "kick") {
+    seg(j.hipF, j.knF, 5.4, leg)
+    seg(j.knF, j.foF, 4.4, leg)
   }
 
-  if (look === "plaid") {
-    const sb = along(j.hipB, j.knB, 0.42)
-    const sf = along(j.hipF, j.knF, 0.42)
-    s.limb(j.hipB[0], j.hipB[1], sb[0], sb[1], 6, pants[0], pants[1], pants[2])
-    s.limb(j.hipF[0], j.hipF[1], sf[0], sf[1], 6, pants[0], pants[1], pants[2])
-  }
-
-  s.limb(j.neck[0], j.neck[1], j.chest[0], j.chest[1], 7, main[0], main[1], main[2])
-  s.disc(j.chest[0], j.chest[1] - 4, 8, main[1])
-  s.disc(j.chest[0] - 2, j.chest[1] - 7, 5, main[0])
+  s.limb(j.shB[0], j.shB[1], j.shF[0], j.shF[1], 7.2, main[0], main[1], main[2])
+  s.limb(j.neck[0], j.neck[1], j.hip[0], j.hip[1], 8.6, main[0], main[1], main[2])
+  s.cap(j.chest[0], j.chest[1], 10, main[0], main[1], main[2])
+  s.cap(j.hip[0], j.hip[1], 8.2, main[0], main[1], main[2])
+  s.limb(j.head[0], j.head[1] + 6, j.neck[0], j.chest[1] - 6, 4.4, skin[0], skin[1], skin[2])
+  s.cap(j.neck[0], j.neck[1], 4.6, skin[0], skin[1], skin[2])
+  s.cap(j.shB[0], j.shB[1], 5.6, main[0], main[1], main[2])
+  s.cap(j.shF[0], j.shF[1], 5.6, main[0], main[1], main[2])
+  s.disc(j.chest[0], j.chest[1], 8.2, main[1])
+  s.disc(j.hip[0], j.hip[1] - 2, 6.2, main[1])
   if (look === "gi") {
-    s.limb(j.hip[0] - 7, j.hip[1] - 2, j.hip[0] + 7, j.hip[1] - 2, 1.1, "#14110e", "#14110e", "#14110e")
-    s.limb(j.chest[0] - 2, j.chest[1] - 10, j.hip[0] - 1, j.hip[1] - 4, 0.7, main[2], main[2], "#5e7054")
-    s.limb(j.chest[0] + 3, j.chest[1] - 10, j.hip[0] + 2, j.hip[1] - 4, 0.7, main[2], main[2], "#5e7054")
+    s.limb(j.hip[0] - 9, j.hip[1] - 1, j.hip[0] + 9, j.hip[1] - 1, 1.6, "#14110e", "#14110e", "#14110e")
+    s.limb(j.chest[0] - 1, j.chest[1] - 8, j.hip[0] - 1, j.hip[1] - 3, 0.9, main[2], main[2], "#5e7054")
   }
   if (look === "plaid") {
     for (let row = 0; row < 3; row += 1) {
-      s.limb(j.chest[0] - 8, j.chest[1] - 9 + row * 4, j.chest[0] + 8, j.chest[1] - 9 + row * 4, 0.7, "#ff4a42", "#d02828", "#8a1010")
+      s.limb(j.chest[0] - 9, j.chest[1] - 6 + row * 4, j.chest[0] + 9, j.chest[1] - 6 + row * 4, 1.05, "#ff4a42", "#d02828", "#8a1010")
     }
+    s.limb(j.hip[0] - 13, j.hip[1] + 2, j.hip[0] + 14, j.hip[1] + 2, 5.2, pants[0], pants[1], pants[2])
+    s.limb(j.hip[0] - 12, j.hip[1] + 8, j.hip[0] + 13, j.hip[1] + 8, 3.6, pants[0], pants[1], pants[2])
   }
-  if (dress) s.limb(j.hip[0] - 9, j.hip[1], j.hip[0] + 9, j.hip[1], 0.8, "#14110e", "#14110e", "#14110e")
+  if (dress) s.limb(j.hip[0] - 10, j.hip[1] + 1, j.hip[0] + 10, j.hip[1] + 1, 1.15, "#14110e", "#14110e", "#14110e")
 
-  s.limb(j.shF[0], j.shF[1], j.elF[0], j.elF[1], 4, sleeve[0], sleeve[1], sleeve[2])
-  s.limb(j.elF[0], j.elF[1], j.haF[0], j.haF[1], 3, sleeve[0], sleeve[1], sleeve[2])
-  s.disc(j.haF[0], j.haF[1], 3.4, skin[1])
-  s.disc(j.haF[0] + 2.2, j.haF[1] - 0.4, 1.1, skin[0])
-  s.disc(j.haB[0], j.haB[1], 2.8, skin[1])
-  s.disc(j.foB[0], j.foB[1], 3.6, feet[1])
-  s.disc(j.foB[0] - 1, j.foB[1] - 1, 1.4, feet[0])
-  if (!dress || pose === "kick") {
-    s.disc(j.foF[0], j.foF[1], 3.6, feet[1])
-    s.disc(j.foF[0] - 1, j.foF[1] - 1, 1.4, feet[0])
+  seg(j.shF, j.elF, 4.4, sleeve)
+  seg(j.elF, j.haF, 3.6, sleeve)
+  const fist = (x, y) => {
+    s.cap(x, y, 3.5, skin[0], skin[1], skin[2])
+    s.disc(x + 2.1, y - 0.2, 1.15, skin[0])
   }
+  fist(j.haF[0], j.haF[1])
+  fist(j.haB[0], j.haB[1])
+  const shoe = (x, y) => {
+    s.cap(x, y - 1, 4.1, feet[0], feet[1], feet[2])
+    s.disc(x + 2.6, y - 0.2, 2.5, feet[0])
+    s.limb(x - 3, y + 2.4, x + 4.2, y + 2.6, 1.15, feet[2], feet[2], feet[2])
+  }
+  shoe(j.foB[0], j.foB[1])
+  if (!dress || pose === "kick") shoe(j.foF[0], j.foF[1])
   if (look === "plaid") {
-    s.disc(j.foB[0], j.foB[1] + 1.2, 4.2, "#f7f4ee")
-    s.disc(j.foF[0], j.foF[1] + 1.2, 4.2, "#f7f4ee")
-    s.limb(j.foB[0] - 3, j.foB[1] + 3.2, j.foB[0] + 3, j.foB[1] + 3.2, 0.7, "#3a342c", "#3a342c", "#3a342c")
-    s.limb(j.foF[0] - 3, j.foF[1] + 3.2, j.foF[0] + 3, j.foF[1] + 3.2, 0.7, "#3a342c", "#3a342c", "#3a342c")
+    const sneaker = (x, y) => {
+      s.cap(x, y, 4.4, "#ffffff", "#f4f1ea", "#c8c2b6")
+      s.disc(x + 2.8, y, 2.4, "#ffffff")
+      s.limb(x - 3.2, y + 2.8, x + 4.4, y + 3, 1.2, "#3a342c", "#3a342c", "#3a342c")
+    }
+    sneaker(j.foB[0], j.foB[1])
+    if (!dress || pose === "kick") sneaker(j.foF[0], j.foF[1])
   }
 
   if (look === "fan" && (pose === "fan" || pose === "idle" || pose === "block")) {
