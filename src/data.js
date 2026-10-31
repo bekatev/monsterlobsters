@@ -284,6 +284,7 @@ export const TOUR = [
     year: "2026",
     city: "Tbilisi",
     place: "House of Camora",
+    ticket: "Free entry",
   },
 ]
 

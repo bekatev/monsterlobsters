@@ -267,6 +267,17 @@ html[data-night="true"] .grain {
   text-transform: uppercase;
 }
 
+.tour-free {
+  justify-self: end;
+  color: #fff8f2;
+  background: #ff3535;
+  padding: 0.42rem 0.7rem;
+  font-size: 0.66rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .tour-row a {
   justify-self: end;
   background: #ff3535;
@@ -1874,7 +1885,8 @@ html[data-night="true"] .cursor-ring {
     grid-template-columns: 4.6rem minmax(0, 1fr);
     column-gap: 0.45rem;
   }
-  .tour-row a {
+  .tour-row a,
+  .tour-free {
     grid-column: 2;
     justify-self: start;
     margin-top: 0.15rem;

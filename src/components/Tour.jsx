@@ -58,6 +58,8 @@ export default function Tour() {
                   <a href={show.href} target="_blank" rel="noreferrer">
                     {show.ticket}
                   </a>
+                ) : show.ticket ? (
+                  <span className="tour-free">{show.ticket}</span>
                 ) : (
                   <span />
                 )}
