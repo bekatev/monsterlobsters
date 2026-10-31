@@ -2,6 +2,16 @@ import { motion } from "framer-motion"
 import { asset } from "../asset"
 import { TOUR } from "../data"
 
+const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 }
+
+function hasPlayed(show) {
+  const [day, month] = show.date.split(" ")
+  const when = new Date(Number(show.year), MONTHS[month], Number(day))
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return when < today
+}
+
 export default function Tour() {
   return (
     <section className="tour-stage" id="tour" aria-labelledby="tour-title">
@@ -25,7 +35,7 @@ export default function Tour() {
           <ul className="tour-list">
             {TOUR.map((show, index) => (
               <motion.li
-                className="tour-row"
+                className={hasPlayed(show) ? "tour-row is-past" : "tour-row"}
                 key={`${show.date}-${show.city}`}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -42,7 +52,9 @@ export default function Tour() {
                     {show.when ? ` · ${show.when}` : ""}
                   </p>
                 </div>
-                {show.href ? (
+                {hasPlayed(show) ? (
+                  <span className="tour-played">Played</span>
+                ) : show.href ? (
                   <a href={show.href} target="_blank" rel="noreferrer">
                     {show.ticket}
                   </a>

@@ -19,16 +19,16 @@ export const ROSTER = [
     colors: { skin: "#e4b48a", hair: "#241c16", shirt: "#f4f0e8", pants: "#b08960", shoe: "#d9c7a4", mark: "#5c3a28" },
   },
   {
-    id: "niku",
-    name: "Niku",
+    id: "tika",
+    name: "Tika",
     look: "fan",
     speed: 2.2,
     special: { name: "FAN", startup: 7, active: 6, recover: 14, dmg: 13, reach: 220, knock: 11, stun: 20 },
     colors: { skin: "#e8c4a2", hair: "#1a120e", shirt: "#f7f4ee", pants: "#1e4634", shoe: "#efeae2" },
   },
   {
-    id: "tika",
-    name: "Tika",
+    id: "niku",
+    name: "Niku",
     look: "green",
     speed: 2.45,
     slide: true,
@@ -258,7 +258,7 @@ function cpuInput(me, foe) {
   const ad = Math.abs(dist)
   const attacking = foe.move && foe.moveFrame >= Math.max(0, foe.move.startup - 2) && foe.moveFrame < foe.move.startup + foe.move.active
   const recovering = foe.move && foe.moveFrame >= foe.move.startup + foe.move.active
-  if (attacking && ad < 240 && Math.random() < 0.7) {
+  if (attacking && ad < 240 && Math.random() < 0.42) {
     input.block = true
     return input
   }
@@ -274,23 +274,23 @@ function cpuInput(me, foe) {
   }
   if (me.cpuWait > 0) {
     me.cpuWait -= 1
-    if (attacking || Math.random() < 0.24) input.block = true
+    if (attacking || Math.random() < 0.12) input.block = true
     return input
   }
   const roll = Math.random()
-  if (recovering && roll < 0.55) {
+  if (recovering && roll < 0.28) {
     input.punch = true
-    me.cpuWait = 10
-  } else if (roll < 0.04) {
+    me.cpuWait = 18
+  } else if (roll < 0.02) {
     input.special = true
-    me.cpuWait = 30
-  } else if (roll < 0.12) {
+    me.cpuWait = 40
+  } else if (roll < 0.07) {
     input.kick = true
-    me.cpuWait = 14
-  } else if (roll < 0.22) {
+    me.cpuWait = 24
+  } else if (roll < 0.13) {
     input.punch = true
-    me.cpuWait = 10
-  } else if (Math.random() < 0.34) input.block = true
+    me.cpuWait = 18
+  } else if (Math.random() < 0.16) input.block = true
   return input
 }
 
@@ -713,7 +713,7 @@ export function mountKyoto(canvas, { onStatus, reduce }) {
       ctx.fillText("LOBSTER ROCK   1996", 32, 156)
       ctx.fillStyle = "#cbb3a6"
       ctx.font = "600 13px Syne, sans-serif"
-      ctx.fillText("BEKA   NIKU   TIKA   ANDRIA", 32, 196)
+      ctx.fillText("BEKA   TIKA   NIKU   ANDRIA", 32, 196)
       if (Math.floor(performance.now() / 420) % 2 === 0) {
         ctx.fillStyle = "#f1ebde"
         ctx.font = "800 18px Syne, sans-serif"

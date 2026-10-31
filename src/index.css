@@ -254,6 +254,19 @@ html[data-night="true"] .grain {
   line-height: 1;
 }
 
+.tour-row.is-past {
+  opacity: 0.55;
+}
+
+.tour-played {
+  justify-self: end;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .tour-row a {
   justify-self: end;
   background: #ff3535;
