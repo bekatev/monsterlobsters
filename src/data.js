@@ -237,6 +237,15 @@ export const TOUR = [
     href: "https://tkt.ge/show/35681/4d-monster-lobsters-european-tour-support-gig",
   },
   {
+    date: "1 Nov",
+    year: "2026",
+    when: "15:00",
+    city: "Tbilisi",
+    place: "New Studio",
+    ticket: "Tickets",
+    href: "https://bevrikabeli.com/",
+  },
+  {
     date: "4 Nov",
     year: "2026",
     when: "19:00",
