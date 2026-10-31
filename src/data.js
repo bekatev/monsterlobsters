@@ -241,7 +241,7 @@ export const TOUR = [
     year: "2026",
     when: "15:00",
     city: "Tbilisi",
-    place: "New Studio",
+    place: "Bevri Kabeli",
     ticket: "Tickets",
     href: "https://bevrikabeli.com/",
   },
