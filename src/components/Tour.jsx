@@ -26,7 +26,7 @@ export default function Tour() {
       </p>
       <div className="tour-layout">
         <div className="tour-intro">
-          <p className="eyebrow">28 Oct — 14 Nov</p>
+          <p className="eyebrow">28 Oct — 13 Nov</p>
           <h1 className="section-title" id="tour-title">
             Dates.
           </h1>

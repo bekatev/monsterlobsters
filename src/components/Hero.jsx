@@ -23,7 +23,7 @@ export default function Hero() {
       <div className="kicker">
         <span>Tbilisi · Lobster Rock</span>
         <button className="text-link" onClick={() => scrollToId("tour")}>
-          Tour · 28 Oct–14 Nov
+          Tour · 28 Oct–13 Nov
         </button>
       </div>
       <div className="future-name" aria-hidden="true">

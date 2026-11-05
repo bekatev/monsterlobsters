@@ -72,7 +72,7 @@ export const CHAPTERS = [
     title: "Live.",
     image: "/photos/festival.jpg",
     alt: "A guitarist in a green and yellow shirt playing to a packed outdoor crowd.",
-    body: ["Travel Guide Tour. 28 October to 14 November."],
+    body: ["Travel Guide Tour. 28 October to 13 November."],
   },
 ]
 
@@ -280,7 +280,7 @@ export const TOUR = [
     href: "https://cooltix.hu/event/6ad229c195daf6742ded07f2",
   },
   {
-    date: "14 Nov",
+    date: "13 Nov",
     year: "2026",
     city: "Tbilisi",
     place: "House of Camora",

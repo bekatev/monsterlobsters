@@ -33,7 +33,7 @@ export default function Band() {
           ))}
         </div>
         <p className="fine">
-          4D Monster Lobsters. Lobster Rock. Tbilisi. Beka, Niku, Tika, Andria. Travel Guide Tour, 28 October–14 November 2026.
+          4D Monster Lobsters. Lobster Rock. Tbilisi. Beka, Niku, Tika, Andria. Travel Guide Tour, 28 October–13 November 2026.
         </p>
       </footer>
     </section>
